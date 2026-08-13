@@ -1,32 +1,41 @@
-# Project: Enterococcus faecium E745 Genome & Transcriptome Analysis
+# Genome Analysis Project – *Enterococcus faecium* E745
 
-This project reproduces the analysis of the multidrug-resistant clinical isolate *Enterococcus faecium* E745, focusing on its adaptation to human serum using long-read genome assembly, RNA-seq, and Tn-seq essential gene screening.
+This repository contains the analysis files and supplementary material for the re-analysis of genomic and transcriptomic data from Zhang et al. (2017).
 
----
+The project includes genome assembly and evaluation, genome annotation, genome comparison, RNA-seq quality control and trimming, RNA-seq mapping, read counting, differential expression analysis, and additional Tn-seq analysis.
 
-## Project Overview
-- **Genome assembly**: PacBio long-read assembly with Canu, polished and annotated with Prokka.
-- **RNA-seq differential expression**: Compare transcriptomes in BHI vs. human serum to identify genes up/downregulated under serum stress.
-- **Tn-seq essential genes**: Use mariner transposon mutagenesis to identify genes required for survival in human serum.
+## Analysis Workflow
 
----
+The complete analysis workflow, including methods, results, figures and discussion, is presented in the project Wiki:
 
-## Repository Structure
-- `raw_data/`: Sequencing data (PacBio, Illumina, RNA-seq, Tn-seq)
-- `assembly/`: Genome assembly and quality control results
-- `annotation/`: Prokka annotation files (GFF, FAA, etc.)
-- `rna_seq/`: HISAT2 alignment, read counts, and DESeq2 differential expression results
-- `tn_seq/`: Bowtie2 alignment, insertion site counts, and final matrix
-- `wiki/`: GitHub Wiki with full analysis pipeline, commands, and figures
+[Full Analysis Workflow](https://github.com/oriettazhan-collab/fake/wiki/Full-Analysis-Workflow)
 
----
+## Code
 
-## Key Results
-1.  **Genome**: 3.14 Mb complete genome, with a single 2.76 Mb contig (N50=2.76 Mb) and 3118 predicted CDS.
-2.  **RNA-seq**: ~95% alignment rate across all samples; PCA shows clear separation between BHI and serum conditions.
-3.  **Tn-seq**: Insertion counts at TA sites identified genes essential for serum survival.
+Most short analysis commands are shown directly in the relevant Methods sections of the Wiki.
 
----
+The complete R script used for the DESeq2 differential expression analysis, PCA and volcano plot generation is stored separately because of its length:
 
-## Access the Full Analysis
-For step-by-step commands, visualizations, and methods, please visit the [GitHub Wiki](https://github.com/oriettazhan-collab/fake/wiki).
+[`code/DESeq2_analysis.R`](https://github.com/oriettazhan-collab/fake/blob/main/code/DESeq2_analysis.R)
+
+## Data and Output Files
+
+Important supplementary files available in this repository include:
+
+- `final_count_matrix_for_R.txt` – RNA-seq count matrix used as input for DESeq2
+- `TN_SEQ_FINAL_MATRIX.txt` – Tn-seq insertion-site count matrix
+- `ERR1797972_1_trim_fastqc.html` – representative post-trimming FastQC report
+
+## Main Tools
+
+The main tools used in the workflow were:
+
+- Canu – genome assembly
+- QUAST – assembly quality evaluation
+- Prokka – genome annotation
+- MUMmer – genome comparison and synteny analysis
+- FastQC and fastp – RNA-seq quality control and preprocessing
+- HISAT2 and SAMtools – RNA-seq alignment and BAM processing
+- HTSeq-count – gene-level read counting
+- DESeq2 – differential expression analysis
+- Bowtie2 – Tn-seq alignment
